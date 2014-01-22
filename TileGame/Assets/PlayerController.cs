@@ -8,6 +8,13 @@ public class PlayerController : MonoBehaviour {
 	public KeyCode minusZKey;
 	public KeyCode plusZKey;
 
+	/*
+	public AnimationClip aidle;
+	public AnimationClip ajump;   
+	public AnimationClip afall;
+	public Animation _animation;
+	*/
+
 	public float timeToMove = 0.5f;
 	private bool moving;
 	private float timeStartedMoving;
@@ -24,6 +31,11 @@ public class PlayerController : MonoBehaviour {
 		alive = true;
 		timeStartedMoving = 0.0f;
 		originalPosition = transform.localPosition;
+
+		// animation.AddClip(ajump, "Jump");
+		// animation.AddClip(afall, "Fall");
+		
+		_animation = GetComponent<Animation>();
 	}
 	
 	// Update is called once per frame
@@ -40,18 +52,22 @@ public class PlayerController : MonoBehaviour {
 		if (!moving) {
 			if (Input.GetKey(minusXKey)) {
 				StartMoving();
+				transform.localEulerAngles = new Vector3(0, -90, 0);
 				targetPosition = new Vector3(originalPosition.x - 1, originalPosition.y, originalPosition.z);
 			}
 			if (Input.GetKey(plusXKey)) {
 				StartMoving();
+				transform.localEulerAngles = new Vector3(0, 90, 0);
 				targetPosition = new Vector3(originalPosition.x + 1, originalPosition.y, originalPosition.z);
 			}
 			if (Input.GetKey(minusZKey)) {
 				StartMoving();
+				transform.localEulerAngles = new Vector3(0, 180, 0);
 				targetPosition = new Vector3(originalPosition.x, originalPosition.y, originalPosition.z - 1);
 			}
 			if (Input.GetKey(plusZKey)) {
 				StartMoving();
+				transform.localEulerAngles = new Vector3(0, 0, 0);
 				targetPosition = new Vector3(originalPosition.x, originalPosition.y, originalPosition.z + 1);
 			}
 		}
