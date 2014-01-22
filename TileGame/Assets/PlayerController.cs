@@ -19,10 +19,10 @@ public class PlayerController : MonoBehaviour {
 			newPosition.x = newPosition.x + 1;
 		}
 		if (Input.GetKeyDown(KeyCode.UpArrow)) {
-			newPosition.x = newPosition.y - 1;
+			newPosition.z = newPosition.z + 1;
 		}
-		if (Input.GetKeyDown(KeyCode.UpArrow)) {
-			newPosition.x = newPosition.y + 1;
+		if (Input.GetKeyDown(KeyCode.DownArrow)) {
+			newPosition.z = newPosition.z - 1;
 		}
 
 		transform.localPosition = newPosition;
