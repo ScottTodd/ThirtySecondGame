@@ -22,9 +22,6 @@ public class GridController : MonoBehaviour {
 				tile.transform.parent = transform;
 				tile.transform.localPosition = new Vector3(i, 0, j);
 
-				FallAfterTime fallScript = tile.GetComponent<FallAfterTime>();
-				fallScript.timeToFallAfter = Random.Range(2.0f,10.0f);
-
 				tileRow.Add(tile);
 			}
 

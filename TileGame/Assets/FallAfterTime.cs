@@ -3,8 +3,10 @@ using System.Collections;
 
 public class FallAfterTime : MonoBehaviour {
 
-	public float timeToFallAfter = 5.0f;
+	public float minTimeToFallAfter = 3.0f;
+	public float maxTimeToFallAfter = 30.0f;
 	public bool hasFallen;
+	private float timeToFallAfter;
 	private float startTime;
 
 	// Use this for initialization
@@ -12,6 +14,7 @@ public class FallAfterTime : MonoBehaviour {
 		hasFallen = false;
 		rigidbody.useGravity = false;
 		startTime = Time.time;
+		timeToFallAfter = Random.Range(minTimeToFallAfter, maxTimeToFallAfter);
 	}
 	
 	// Update is called once per frame
