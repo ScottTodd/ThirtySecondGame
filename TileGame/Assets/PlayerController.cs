@@ -12,16 +12,16 @@ public class PlayerController : MonoBehaviour {
 	void Update () {
 		Vector3 newPosition = transform.localPosition;
 
-		if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+		if (Input.GetKeyDown(KeyCode.DownArrow)) {
 			newPosition.x = newPosition.x - 1;
 		}
-		if (Input.GetKeyDown(KeyCode.RightArrow)) {
+		if (Input.GetKeyDown(KeyCode.UpArrow)) {
 			newPosition.x = newPosition.x + 1;
 		}
-		if (Input.GetKeyDown(KeyCode.UpArrow)) {
+		if (Input.GetKeyDown(KeyCode.LeftArrow)) {
 			newPosition.z = newPosition.z + 1;
 		}
-		if (Input.GetKeyDown(KeyCode.DownArrow)) {
+		if (Input.GetKeyDown(KeyCode.RightArrow)) {
 			newPosition.z = newPosition.z - 1;
 		}
 
