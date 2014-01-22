@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour {
 		// animation.AddClip(ajump, "Jump");
 		// animation.AddClip(afall, "Fall");
 		
-		_animation = GetComponent<Animation>();
+		//_animation = GetComponent<Animation>();
 	}
 	
 	// Update is called once per frame
