@@ -14,14 +14,29 @@ public class PlayerController : MonoBehaviour {
 	private Vector3 originalPosition;
 	private Vector3 targetPosition;
 
+	public GameObject tileGrid;
+
+	public bool alive;
+
 	// Use this for initialization
 	void Start () {
 		moving = false;
+		alive = true;
 		timeStartedMoving = 0.0f;
+		originalPosition = transform.localPosition;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		
+		
+		GridController gridController = tileGrid.GetComponent<GridController>();
+		if (gridController.HasTileFallen((int)Mathf.Round(transform.localPosition.x),
+		                                 (int)Mathf.Round(transform.localPosition.z))) {
+			alive = false;
+			return;
+		}
+
 		if (!moving) {
 			if (Input.GetKey(minusXKey)) {
 				StartMoving();
@@ -48,6 +63,7 @@ public class PlayerController : MonoBehaviour {
 
 			if (timeDiff > timeToMove) {
 				moving = false;
+				originalPosition = transform.localPosition;
 			}
 		}
     }

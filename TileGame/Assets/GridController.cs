@@ -8,13 +8,15 @@ public class GridController : MonoBehaviour {
 	public int gridSizeX;
 	public int gridSizeZ;
 
-	private List<GameObject> tiles;
+	private List<List<GameObject>> tiles;
 
 	// Use this for initialization
 	void Start () {
-		tiles = new List<GameObject>();
+		tiles = new List<List<GameObject>>();
 
 		for (int i = 0; i < gridSizeX; i++) {
+			List<GameObject> tileRow = new List<GameObject>();
+
 			for (int j = 0; j < gridSizeZ; j++) {
 				GameObject tile = (GameObject) Instantiate(tilePrefab);
 				tile.transform.parent = transform;
@@ -23,13 +25,28 @@ public class GridController : MonoBehaviour {
 				FallAfterTime fallScript = tile.GetComponent<FallAfterTime>();
 				fallScript.timeToFallAfter = Random.Range(2.0f,10.0f);
 
-				tiles.Add(tile);
+				tileRow.Add(tile);
 			}
+
+			tiles.Add(tileRow);
 		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public bool HasTileFallen(int xIndex, int zIndex) {
+		if (xIndex < 0 || xIndex >= tiles.Count) {
+			return true;
+		}
+		if (zIndex < 0 || zIndex >= tiles[xIndex].Count) {
+			return true;
+		}
+
+		GameObject tile = tiles[xIndex][zIndex];
+		FallAfterTime fallScript = tile.GetComponent<FallAfterTime>();
+		return fallScript.hasFallen;
 	}
 }
