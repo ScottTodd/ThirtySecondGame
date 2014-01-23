@@ -8,12 +8,7 @@ public class PlayerController : MonoBehaviour {
 	public KeyCode minusZKey;
 	public KeyCode plusZKey;
 
-	/*
-	public AnimationClip aidle;
-	public AnimationClip ajump;   
-	public AnimationClip afall;
-	public Animation _animation;
-	*/
+	private Animation _animation;
 
 	public float timeToMove = 0.5f;
 	private bool moving;
@@ -32,10 +27,8 @@ public class PlayerController : MonoBehaviour {
 		timeStartedMoving = 0.0f;
 		originalPosition = transform.localPosition;
 
-		// animation.AddClip(ajump, "Jump");
-		// animation.AddClip(afall, "Fall");
-		
-		//_animation = GetComponent<Animation>();
+		_animation = GetComponentInChildren<Animation>();
+		_animation.Play("Idle");
 	}
 	
 	// Update is called once per frame
@@ -46,10 +39,12 @@ public class PlayerController : MonoBehaviour {
 		if (gridController.HasTileFallen((int)Mathf.Round(transform.localPosition.x),
 		                                 (int)Mathf.Round(transform.localPosition.z))) {
 			alive = false;
+			_animation.CrossFade("Fall");
 			return;
 		}
 
 		if (!moving) {
+			_animation.PlayQueued("Idle");
 			if (Input.GetKey(minusXKey)) {
 				StartMoving();
 				transform.localEulerAngles = new Vector3(0, -90, 0);
@@ -85,6 +80,7 @@ public class PlayerController : MonoBehaviour {
     }
 
 	void StartMoving() {
+		_animation.Play("Jump");
 		timeStartedMoving = Time.time;
 		moving = true;
 		originalPosition = transform.localPosition;
