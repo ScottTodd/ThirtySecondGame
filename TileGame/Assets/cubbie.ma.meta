@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0e8aef4a4c1168a42afac0a3c9187430
+guid: 2a9d78e00ce0f2344a995ee0d795f402
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
@@ -40,10 +40,9 @@ ModelImporter:
     400032: r_shoulder
     400034: root
     4300000: mesh
-    7400000: Take 001
-    7400002: Idle
-    7400004: Jump
-    7400006: Fall
+    7400000: Idle
+    7400002: Jump
+    7400004: Fall
     9500000: //RootNode
     11100000: //RootNode
     13700000: mesh
@@ -53,7 +52,7 @@ ModelImporter:
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
-    bakeSimulation: 0
+    bakeSimulation: 1
     optimizeGameObjects: 0
     animationCompression: 1
     animationRotationError: .5
@@ -63,79 +62,17 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
-      takeName: Take 001
-      firstFrame: 0
-      lastFrame: 60
-      wrapMode: 2
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 1
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: CTRL
-        weight: 1
-      - path: CTRL/ctrl_body
-        weight: 1
-      - path: CTRL/ctrl_lHand
-        weight: 1
-      - path: CTRL/ctrl_lLeg
-        weight: 1
-      - path: CTRL/ctrl_rHand
-        weight: 1
-      - path: CTRL/ctrl_rLeg
-        weight: 1
-      - path: mesh
-        weight: 1
-      - path: root
-        weight: 1
-      - path: root/chest
-        weight: 1
-      - path: root/chest/l_shoulder
-        weight: 1
-      - path: root/chest/l_shoulder/l_hand
-        weight: 1
-      - path: root/chest/r_shoulder
-        weight: 1
-      - path: root/chest/r_shoulder/r_hand
-        weight: 1
-      - path: root/l_hip
-        weight: 1
-      - path: root/l_hip/l_foot
-        weight: 1
-      - path: root/r_hip
-        weight: 1
-      - path: root/r_hip/r_foot
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-    - serializedVersion: 16
       name: Idle
       takeName: Take 001
       firstFrame: 1
       lastFrame: 23
-      wrapMode: 0
+      wrapMode: 2
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 1
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -251,9 +188,9 @@ ModelImporter:
     - serializedVersion: 16
       name: Fall
       takeName: Take 001
-      firstFrame: 48
+      firstFrame: 49
       lastFrame: 59
-      wrapMode: 0
+      wrapMode: 2
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
