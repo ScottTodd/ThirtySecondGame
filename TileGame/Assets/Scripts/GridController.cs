@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class GridController : MonoBehaviour
 {
     public GameObject tilePrefab;
+    public GameObject tile2Prefab;
     public int gridSizeX;
     public int gridSizeZ;
     private List<List<GameObject>> tiles;
@@ -15,22 +16,32 @@ public class GridController : MonoBehaviour
 
     }
 
-    public void StartGame () {
+    public void StartGame ()
+    {
         CreateGrid ();
     }
 
     void CreateGrid ()
     {
         tiles = new List<List<GameObject>> ();
+        
+        // Pick a random tile to not fall
+        int randX = Random.Range (0, gridSizeX - 1);
+        int randZ = Random.Range (0, gridSizeZ - 1);
 
         for (int i = 0; i < gridSizeX; i++) {
             List<GameObject> tileRow = new List<GameObject> ();
 
             for (int j = 0; j < gridSizeZ; j++) {
-                GameObject tile = (GameObject)Instantiate (tilePrefab);
+                GameObject tile;
+                if (i == randX && j == randZ) {
+                    tile = (GameObject)Instantiate (tile2Prefab);
+                } else {
+                    tile = (GameObject)Instantiate (tilePrefab);
+                }
+
                 tile.transform.parent = transform;
                 tile.transform.localPosition = new Vector3 (i, 0, j);
-
                 tileRow.Add (tile);
             }
 
@@ -47,10 +58,10 @@ public class GridController : MonoBehaviour
     public bool HasTileFallen (int xIndex, int zIndex)
     {
         if (xIndex < 0 || xIndex >= tiles.Count) {
-                return true;
+            return true;
         }
         if (zIndex < 0 || zIndex >= tiles [xIndex].Count) {
-                return true;
+            return true;
         }
 
         GameObject tile = tiles [xIndex] [zIndex];
