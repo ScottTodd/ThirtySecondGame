@@ -2,48 +2,59 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GridController : MonoBehaviour {
+public class GridController : MonoBehaviour
+{
+    public GameObject tilePrefab;
+    public int gridSizeX;
+    public int gridSizeZ;
+    private List<List<GameObject>> tiles;
 
-	public GameObject tilePrefab;
-	public int gridSizeX;
-	public int gridSizeZ;
+    // Use this for initialization
+    void Start ()
+    {
 
-	private List<List<GameObject>> tiles;
+    }
 
-	// Use this for initialization
-	void Start () {
-		tiles = new List<List<GameObject>>();
+    public void StartGame () {
+        CreateGrid ();
+    }
 
-		for (int i = 0; i < gridSizeX; i++) {
-			List<GameObject> tileRow = new List<GameObject>();
+    void CreateGrid ()
+    {
+        tiles = new List<List<GameObject>> ();
 
-			for (int j = 0; j < gridSizeZ; j++) {
-				GameObject tile = (GameObject) Instantiate(tilePrefab);
-				tile.transform.parent = transform;
-				tile.transform.localPosition = new Vector3(i, 0, j);
+        for (int i = 0; i < gridSizeX; i++) {
+            List<GameObject> tileRow = new List<GameObject> ();
 
-				tileRow.Add(tile);
-			}
+            for (int j = 0; j < gridSizeZ; j++) {
+                GameObject tile = (GameObject)Instantiate (tilePrefab);
+                tile.transform.parent = transform;
+                tile.transform.localPosition = new Vector3 (i, 0, j);
 
-			tiles.Add(tileRow);
-		}
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+                tileRow.Add (tile);
+            }
 
-	public bool HasTileFallen(int xIndex, int zIndex) {
-		if (xIndex < 0 || xIndex >= tiles.Count) {
-			return true;
-		}
-		if (zIndex < 0 || zIndex >= tiles[xIndex].Count) {
-			return true;
-		}
+            tiles.Add (tileRow);
+        }
+    }
 
-		GameObject tile = tiles[xIndex][zIndex];
-		FallAfterTime fallScript = tile.GetComponent<FallAfterTime>();
-		return fallScript.hasFallen;
-	}
+    // Update is called once per frame
+    void Update ()
+    {
+
+    }
+
+    public bool HasTileFallen (int xIndex, int zIndex)
+    {
+        if (xIndex < 0 || xIndex >= tiles.Count) {
+                return true;
+        }
+        if (zIndex < 0 || zIndex >= tiles [xIndex].Count) {
+                return true;
+        }
+
+        GameObject tile = tiles [xIndex] [zIndex];
+        FallAfterTime fallScript = tile.GetComponent<FallAfterTime> ();
+        return fallScript.hasFallen;
+    }
 }
