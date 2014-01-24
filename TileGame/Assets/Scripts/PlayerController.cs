@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour {
 
     public bool alive;
 
+	private Renderer playerRenderer;
+
     // Use this for initialization
     void Start () {
         moving = false;
@@ -36,6 +38,10 @@ public class PlayerController : MonoBehaviour {
 
         _animation = GetComponentInChildren<Animation>();
         _animation.Play("Idle");
+
+		playerRenderer = gameObject.GetComponentInChildren< Renderer >();
+		playerRenderer.materials[1].SetTextureScale("_MainTex", new Vector2(0.5f, 1.0f));
+		
     }
 
     // Update is called once per frame
@@ -46,6 +52,9 @@ public class PlayerController : MonoBehaviour {
                                          (int)Mathf.Round(transform.localPosition.z))) {
             alive = false;
             _animation.CrossFade("Fall");
+
+			playerRenderer.materials[1].SetTextureOffset("_MainTex", new Vector2(0.5f, 0.0f));
+
             return;
         }
 
