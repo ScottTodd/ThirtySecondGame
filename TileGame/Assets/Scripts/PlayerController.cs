@@ -8,6 +8,12 @@ public class PlayerController : MonoBehaviour {
     public KeyCode minusZKey;
     public KeyCode plusZKey;
 
+    enum Direction
+    {
+        none, minusX, plusX, minusZ, plusZ
+    }
+    private Direction queuedCommand;
+
     private Animation _animation;
 
     public float timeToMove = 0.5f;
@@ -24,6 +30,7 @@ public class PlayerController : MonoBehaviour {
     void Start () {
         moving = false;
         alive = true;
+        queuedCommand = Direction.none;
         timeStartedMoving = 0.0f;
         originalPosition = transform.localPosition;
 
@@ -44,28 +51,28 @@ public class PlayerController : MonoBehaviour {
 
         if (!moving) {
             _animation.PlayQueued("Idle");
-            if (Input.GetKey(minusXKey)) {
+            if (Input.GetKeyDown(minusXKey) || queuedCommand == Direction.minusX) {
                 transform.localEulerAngles = new Vector3(0, -90, 0);
                 targetPosition = new Vector3(transform.localPosition.x - 1,
                                              transform.localPosition.y,
                                              transform.localPosition.z);
                 StartMoving();
             }
-            if (Input.GetKey(plusXKey)) {
+            if (Input.GetKeyDown(plusXKey) || queuedCommand == Direction.plusX) {
                 transform.localEulerAngles = new Vector3(0, 90, 0);
                 targetPosition = new Vector3(transform.localPosition.x + 1,
                                              transform.localPosition.y,
                                              transform.localPosition.z);
                 StartMoving();
             }
-            if (Input.GetKey(minusZKey)) {
+            if (Input.GetKeyDown(minusZKey) || queuedCommand == Direction.minusZ) {
                 transform.localEulerAngles = new Vector3(0, 180, 0);
                 targetPosition = new Vector3(transform.localPosition.x,
                                              transform.localPosition.y,
                                              transform.localPosition.z - 1);
                 StartMoving();
             }
-            if (Input.GetKey(plusZKey)) {
+            if (Input.GetKeyDown(plusZKey) || queuedCommand == Direction.plusZ) {
                 transform.localEulerAngles = new Vector3(0, 0, 0);
                 targetPosition = new Vector3(transform.localPosition.x,
                                              transform.localPosition.y,
@@ -76,6 +83,19 @@ public class PlayerController : MonoBehaviour {
 
         if (moving) {
             float timeDiff = Time.time - timeStartedMoving;
+
+            // check for new input
+            if (timeDiff > 0.05f) {
+                if (Input.GetKeyDown(minusXKey)) {
+                    queuedCommand = Direction.minusX;
+                } else if (Input.GetKeyDown(plusXKey)) {
+                    queuedCommand = Direction.plusX;
+                } else if (Input.GetKeyDown(minusZKey)) {
+                    queuedCommand = Direction.minusZ;
+                } else if (Input.GetKeyDown(plusZKey)) {
+                    queuedCommand = Direction.plusZ;
+                }
+            }
 
             transform.localPosition = Vector3.Lerp(originalPosition, targetPosition, timeDiff / timeToMove);
 
@@ -90,6 +110,7 @@ public class PlayerController : MonoBehaviour {
         _animation.Play("Jump");
         timeStartedMoving = Time.time;
         moving = true;
+        queuedCommand = Direction.none;
         originalPosition = transform.localPosition;
         RoundTargetPosition();
     }
