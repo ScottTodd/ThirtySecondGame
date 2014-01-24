@@ -45,24 +45,32 @@ public class PlayerController : MonoBehaviour {
         if (!moving) {
             _animation.PlayQueued("Idle");
             if (Input.GetKey(minusXKey)) {
-                StartMoving();
                 transform.localEulerAngles = new Vector3(0, -90, 0);
-                targetPosition = new Vector3(originalPosition.x - 1, originalPosition.y, originalPosition.z);
+                targetPosition = new Vector3(transform.localPosition.x - 1,
+                                             transform.localPosition.y,
+                                             transform.localPosition.z);
+                StartMoving();
             }
             if (Input.GetKey(plusXKey)) {
-                StartMoving();
                 transform.localEulerAngles = new Vector3(0, 90, 0);
-                targetPosition = new Vector3(originalPosition.x + 1, originalPosition.y, originalPosition.z);
+                targetPosition = new Vector3(transform.localPosition.x + 1,
+                                             transform.localPosition.y,
+                                             transform.localPosition.z);
+                StartMoving();
             }
             if (Input.GetKey(minusZKey)) {
-                StartMoving();
                 transform.localEulerAngles = new Vector3(0, 180, 0);
-                targetPosition = new Vector3(originalPosition.x, originalPosition.y, originalPosition.z - 1);
+                targetPosition = new Vector3(transform.localPosition.x,
+                                             transform.localPosition.y,
+                                             transform.localPosition.z - 1);
+                StartMoving();
             }
             if (Input.GetKey(plusZKey)) {
-                StartMoving();
                 transform.localEulerAngles = new Vector3(0, 0, 0);
-                targetPosition = new Vector3(originalPosition.x, originalPosition.y, originalPosition.z + 1);
+                targetPosition = new Vector3(transform.localPosition.x,
+                                             transform.localPosition.y,
+                                             transform.localPosition.z + 1);
+                StartMoving();
             }
         }
 
@@ -83,5 +91,12 @@ public class PlayerController : MonoBehaviour {
         timeStartedMoving = Time.time;
         moving = true;
         originalPosition = transform.localPosition;
+        RoundTargetPosition();
+    }
+
+    void RoundTargetPosition() {
+        targetPosition = new Vector3((int)Mathf.Round(targetPosition.x),
+                                     targetPosition.y,
+                                     (int)Mathf.Round(targetPosition.z));
     }
 }
